@@ -1,14 +1,17 @@
-import os
-import sys
 from typing import List
+from ..utils import snowflake_connection, logger
 
-sys.path.append(os.path.join(os.path.normpath(os.path.join(os.path.abspath(__file__), "../..")), 'utils'))
-
-import snowflake_connection
 
 def execute_sf_query(query: str) -> List:
     """Executes Query in Snowflake and returns list of results"""
-    with snowflake_connection() as conn:
+    result = []
+    conn = snowflake_connection()  # Don't use 'with'
+    try:
         conn.execute(query)
-        result = conn.fetchall()
+        try:
+            result = conn.fetchall()
+        except Exception as e:
+            logger.error(f"Error fetching Snowflake results: {e}")
+    finally:
+        conn.close()
     return result

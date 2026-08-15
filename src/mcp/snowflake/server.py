@@ -5,7 +5,7 @@ import os
 
 load_dotenv(os.path.join(os.path.normpath(os.path.join(os.path.abspath(__file__), "../../../..")), '.env'))
 
-from tools import execute_sf_query
+from .tools import execute_sf_query
 
 mcp = MCPServer('Snowflake MCP Server')
 

@@ -43,6 +43,5 @@ def ingest_file(file_path: str):
                 **chunk.metadata,
                 "chunk_index": index,
                 "source": file_path,
-            },
-            document=chunk.page_content,
+            }
         )

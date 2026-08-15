@@ -9,7 +9,18 @@ SF_WAREHOUSE = os.getenv('SF_WAREHOUSE', '')
 SF_DATABASE = os.getenv('SF_DATABASE', '')
 SF_SCHEMA = os.getenv('SF_SCHEMA', '')
 
-assert all([SF_USER, SF_PASSWORD, SF_ACCOUNT, SF_WAREHOUSE, SF_DATABASE, SF_SCHEMA]), 'SF_USER, SF_PASSWORD, SF_ACCOUNT, SF_WAREHOUSE, SF_DATABASE, SF_SCHEMA need to be set in Environment Variable'
+required_vars = {
+    'SF_USER': SF_USER,
+    'SF_PASSWORD': SF_PASSWORD,
+    'SF_ACCOUNT': SF_ACCOUNT,
+    'SF_WAREHOUSE': SF_WAREHOUSE,
+    'SF_DATABASE': SF_DATABASE,
+    'SF_SCHEMA': SF_SCHEMA,
+}
+
+missing_vars = [var for var, val in required_vars.items() if not val]
+if missing_vars:
+    raise ValueError(f"Required environment variables missing: {', '.join(missing_vars)}")
 
 def snowflake_connection() -> SnowflakeConnection:
     return snowflake.connector.connect(

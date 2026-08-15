@@ -5,7 +5,7 @@ import os
 
 load_dotenv(os.path.join(os.path.normpath(os.path.join(os.path.abspath(__file__), "../../../..")), '.env'))
 
-from tools import query_sqlite
+from .tools import query_sqlite
 
 mcp = MCPServer('SQLite MCP Server')
 
