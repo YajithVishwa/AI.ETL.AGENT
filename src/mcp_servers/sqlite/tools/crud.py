@@ -1,6 +1,6 @@
 from typing import List, Optional
-from ..utils import logger
-from ..connection import sqlite_connect
+from mcp_servers.sqlite.utils import logger
+from mcp_servers.sqlite.connection import sqlite_connect
 
 
 def query_sqlite(query: str) -> Optional[List]:

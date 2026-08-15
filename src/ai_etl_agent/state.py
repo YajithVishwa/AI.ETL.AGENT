@@ -1,8 +1,9 @@
-from typing import TypedDict, List, Any
-from langchain_core.messages import BaseMessage
+from typing import TypedDict, List, Any, Annotated
+from langgraph.graph.message import add_messages
+from langchain_core.messages import AnyMessage
 
 class AgentState(TypedDict):
-    messages: List[BaseMessage]
+    messages: Annotated[list[AnyMessage], add_messages]
     user_query: str
     plan: List[str]
     current_step: str

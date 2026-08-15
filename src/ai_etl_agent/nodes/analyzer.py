@@ -1,5 +1,5 @@
 from langchain_core.messages import HumanMessage, SystemMessage
-from ..state import AgentState
+from ai_etl_agent.state import AgentState
 
 
 def analyzer_node( state: AgentState, llm) -> AgentState:

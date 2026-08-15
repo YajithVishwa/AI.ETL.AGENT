@@ -7,23 +7,13 @@ import sys
 class MCPClient:
     def __init__(self):
         base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        mcp_path = os.path.join(base_path, 'src', 'mcp')
+        mcp_path = os.path.join(base_path, 'src', 'mcp_servers')
         self.client = MultiServerMCPClient(
             connections={
                 "databricks": {
                     "transport": "stdio",
-                    "command": "python",
-                    "args": [os.path.join(mcp_path, "dbx", "server.py")]
-                },
-                "snowflake": {
-                    "transport": "stdio",
-                    "command": "python",
-                    "args": [os.path.join(mcp_path, "snowflake", "server.py")]
-                },
-                "sqlite": {
-                    "transport": "stdio",
-                    "command": "python",
-                    "args": [os.path.join(mcp_path, "sqlite", "server.py")]
+                    "command": "uv",
+                    "args": ['run', 'python', '-m' , 'mcp_servers.dbx.server']
                 }
             }
         )

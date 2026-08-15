@@ -1,5 +1,5 @@
 from typing import List
-from ..utils import snowflake_connection, logger
+from mcp_servers.snowflake.utils import snowflake_connection, logger
 
 
 def execute_sf_query(query: str) -> List:

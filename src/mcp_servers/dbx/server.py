@@ -1,4 +1,4 @@
-from mcp.server import MCPServer
+from mcp.server.fastmcp import FastMCP
 from typing import List, Dict, Any
 from dotenv import load_dotenv
 import os
@@ -7,7 +7,7 @@ load_dotenv(os.path.join(os.path.normpath(os.path.join(os.path.abspath(__file__)
 
 from .tools import list_dbx_jobs, get_dbx_job, trigger_dbx_job
 
-mcp = MCPServer(name='Databricks MCP Server')
+mcp = FastMCP(name='Databricks MCP Server')
 
 @mcp.tool()
 def list_jobs() -> List[Dict[str, Any]]:

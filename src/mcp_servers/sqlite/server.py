@@ -1,18 +1,18 @@
-from mcp.server import MCPServer
-from typing import List, Dict
+from mcp.server.fastmcp import FastMCP
+from typing import List
 from dotenv import load_dotenv
 import os
 
 load_dotenv(os.path.join(os.path.normpath(os.path.join(os.path.abspath(__file__), "../../../..")), '.env'))
 
-from .tools import execute_sf_query
+from tools import query_sqlite
 
-mcp = MCPServer('Snowflake MCP Server')
+mcp = FastMCP('SQLite MCP Server')
 
 @mcp.tool()
 def execute_query(query: str) -> List:
-    """Execute Query in Snowflake and return list of results"""
-    return execute_sf_query(query)
+    """Execute Query in SQLite and return list of results"""
+    return query_sqlite(query)
 
 if __name__ == '__main__':
     mcp.run(transport='stdio')

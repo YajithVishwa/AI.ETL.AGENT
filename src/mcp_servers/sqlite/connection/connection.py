@@ -1,6 +1,6 @@
 import sqlite3
 import os
-from ..utils import logger
+from mcp_servers.sqlite.utils import logger
 
 def sqlite_connect():
     base_path = os.path.dirname(os.path.abspath(__file__))

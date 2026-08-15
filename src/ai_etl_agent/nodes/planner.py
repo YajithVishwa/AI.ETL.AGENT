@@ -1,5 +1,5 @@
 from langchain_core.messages import HumanMessage
-from ..state import AgentState
+from ai_etl_agent.state import AgentState
 
 def planner_node(state: AgentState) -> AgentState:
     """
@@ -16,7 +16,7 @@ def planner_node(state: AgentState) -> AgentState:
 
     needs_rag = any(keyword in user_query for keyword in ['why', 'how', 'documentation', 'architecture', 'guideline'])
 
-    needs_tools = any(keyword in user_query for keyword in ['run', 'check', 'job', 'pipeline', 'execute', 'query', 'table'])
+    needs_tools = any(keyword in user_query for keyword in ['run', 'check', 'jobs', 'pipeline', 'execute', 'query', 'table'])
 
     return {
         "plan": plan,

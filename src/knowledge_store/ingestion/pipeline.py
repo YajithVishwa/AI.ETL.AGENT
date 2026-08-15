@@ -1,10 +1,10 @@
 from typing import List
-from .loader import load_document
-from .cleaner import clean_documents
-from .splitter import split_documents
+from knowledge_store.ingestion.loader import load_document
+from knowledge_store.ingestion.cleaner import clean_documents
+from knowledge_store.ingestion.splitter import split_documents
 from uuid import uuid4
-from ..vectorstore import ChromaVectorStore
-from ..embeddings import get_embedding_model
+from knowledge_store.vectorstore import ChromaVectorStore
+from knowledge_store.embeddings.embeddings import get_embedding_model
 import os
 
 def ingest_file(file_path: str):
