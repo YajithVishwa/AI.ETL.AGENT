@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  ai-etl-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ai-etl-agent
+    ports:
+      - "8501:8501"  # Streamlit UI
+      - "8000:8000"  # Optional API port
+    volumes:
+      - ./src:/app/src
+      - ./data:/app/data
+      - ./logs:/app/logs
+    environment:
+      # LLM Configuration
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      
+      # Snowflake Configuration (optional)
+      - SNOWFLAKE_ACCOUNT=${SNOWFLAKE_ACCOUNT}
+      - SNOWFLAKE_USER=${SNOWFLAKE_USER}
+      - SNOWFLAKE_PASSWORD=${SNOWFLAKE_PASSWORD}
+      - SNOWFLAKE_DATABASE=${SNOWFLAKE_DATABASE}
+      - SNOWFLAKE_SCHEMA=${SNOWFLAKE_SCHEMA}
+      - SNOWFLAKE_WAREHOUSE=${SNOWFLAKE_WAREHOUSE}
+      
+      # Databricks Configuration (optional)
+      - DATABRICKS_HOST=${DATABRICKS_HOST}
+      - DATABRICKS_TOKEN=${DATABRICKS_TOKEN}
+      
+      # SQLite Configuration (optional)
+      - SQLITE_DB_PATH=/app/data/local.db
+      
+      # Streamlit settings
+      - STREAMLIT_SERVER_HEADLESS=true
+      - STREAMLIT_SERVER_MAXUPLOADSIZE=200
+    
+    # Restart policy
+    restart: unless-stopped
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+        reservations:
+          cpus: '1'
+          memory: 2G
+
+  # Optional: ChromaDB persistence service
+  # chroma:
+  #   image: ghcr.io/chroma-core/chroma:latest
+  #   container_name: chroma-db
+  #   ports:
+  #     - "8000:8000"
+  #   environment:
+  #     - IS_PERSISTENT=TRUE
+  #   volumes:
+  #     - ./data/chroma:/chroma/data
+  #   restart: unless-stopped
+
+networks:
+  default:
+    name: ai-etl-network

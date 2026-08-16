@@ -13,7 +13,7 @@ for noisy in ("httpx", "httpcore", "urllib3", "huggingface_hub"):
 
 logging.getLogger("transformers").setLevel(logging.ERROR)
 
-from knowledge_store import get_embedding_model, ChromaVectorStore
+from knowledge_store import get_embedding_model, ChromaVectorStore, ingest_file
 from ai_etl_agent.graph import build_graph
 from ai_etl_agent.mcp_client import MCPClient
 
@@ -138,6 +138,17 @@ with st.sidebar:
     )
 
     st.divider()
+
+    uploaded_file = st.file_uploader(label="Upload PDF", type=["pdf"], key="file_uploader")
+    if uploaded_file is not None:
+        base_location = os.path.normpath(os.path.join(os.path.abspath(__file__), '../../knowledge_store/content'))
+        if not os.path.exists(base_location):
+            os.makedirs(base_location)
+        file_path = os.path.join(base_location, uploaded_file.name)
+        with open(file_path, "wb") as f:
+            f.write(uploaded_file.getbuffer())
+
+        ingest_file(file_path)
 
     if st.button("🗑️ Clear Chat", use_container_width=True):
 
