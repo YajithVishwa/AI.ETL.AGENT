@@ -40,6 +40,8 @@ Analyzer  Tools → Agent (loop)
    END
 ```
 
+![Flow](images/langgraph_etl_agent_flow.png)
+
 **Node Responsibilities:**
 - **Planner**: Analyzes user query and determines if RAG or tool execution is needed
 - **RAG**: Retrieves relevant documents from the knowledge base
@@ -281,6 +283,16 @@ Response: "Job started successfully"
 # TODO: Add test suite
 pytest tests/
 ```
+
+## Screenshots
+
+![UI](images/UI.jpg)
+
+![Prompt Response](images/prompt.jpg)
+
+![Rag Reference](images/rag_reference.jpg)
+
+![Tool Usage](images/tool_use.jpg)
 
 ### Adding New Tools
 1. Create a new MCP server in `src/mcp_servers/<system>/`
