@@ -14,9 +14,9 @@ def planner_node(state: AgentState) -> AgentState:
         "Generate final response",
     ]
 
-    needs_rag = any(keyword in user_query for keyword in ['why', 'how', 'documentation', 'architecture', 'guideline'])
+    needs_rag = any(keyword in user_query for keyword in ['why', 'how', 'documentation', 'architecture', 'guideline', 'rag', 'explain', 'explanation', 'details', 'information', 'reference', 'references', 'source', 'sources'])
 
-    needs_tools = any(keyword in user_query for keyword in ['run', 'check', 'jobs', 'pipeline', 'execute', 'query', 'table'])
+    needs_tools = any(keyword in user_query for keyword in ['run', 'check', 'jobs', 'pipeline', 'execute', 'query', 'table', 'tool', 'tools', 'external', 'system', 'systems', 'api', 'apis'])
 
     return {
         "plan": plan,

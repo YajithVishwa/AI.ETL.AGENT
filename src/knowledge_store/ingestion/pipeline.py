@@ -26,7 +26,7 @@ def ingest_file(file_path: str):
 
     # 5. Initialize ChromaDB
     vector_store = ChromaVectorStore(
-        collection_name="documents"
+        collection_name="ai_etl_agent"
     )
 
     # 6. Embed and store each chunk
@@ -42,6 +42,7 @@ def ingest_file(file_path: str):
             metadata={
                 **chunk.metadata,
                 "chunk_index": index,
+                "filename": os.path.basename(file_path),
                 "source": file_path,
             }
         )

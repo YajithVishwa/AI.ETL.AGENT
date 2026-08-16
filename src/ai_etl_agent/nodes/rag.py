@@ -15,8 +15,28 @@ class RagNode:
             vector=query_embedding,
             top_k=5,
         )
+        references = []
+
+        metadatas = results.get("metadatas", [[]])[0]
+
+        for metadata in metadatas:
+            references.append({
+                "filename": metadata.get(
+                    "filename",
+                    "Unknown"
+                ),
+                "source": metadata.get(
+                    "source",
+                    "Unknown"
+                ),
+                "page": metadata.get("page"),
+                "chunk_index": metadata.get(
+                    "chunk_index"
+                ),
+            })
         return {
             "rag_query": query,
             "rag_results": results,
+            "references": references,
             "current_step": "rag_completed",
         }
