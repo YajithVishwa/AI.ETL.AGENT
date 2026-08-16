@@ -69,9 +69,7 @@ uv venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\Activate.ps1
 
 # Install dependencies
-uv pip install -e .
-# Or with pip
-pip install -e .
+uv sync
 ```
 
 ## ⚙️ Configuration
@@ -82,7 +80,7 @@ Create a `.env` file in the project root:
 # LLM Configuration
 GROQ_API_KEY=your_groq_api_key
 
-# Snowflake Configuration (optional)
+# Snowflake Configuration
 SNOWFLAKE_ACCOUNT=your_account
 SNOWFLAKE_USER=your_user
 SNOWFLAKE_PASSWORD=your_password
@@ -90,12 +88,9 @@ SNOWFLAKE_DATABASE=your_database
 SNOWFLAKE_SCHEMA=your_schema
 SNOWFLAKE_WAREHOUSE=your_warehouse
 
-# Databricks Configuration (optional)
+# Databricks Configuration
 DATABRICKS_HOST=your_databricks_host
 DATABRICKS_TOKEN=your_databricks_token
-
-# SQLite Configuration (optional)
-SQLITE_DB_PATH=./data/local.db
 ```
 
 ## 🚀 Usage
@@ -104,7 +99,8 @@ SQLITE_DB_PATH=./data/local.db
 Run the interactive chat interface in the terminal:
 
 ```bash
-python src/ai_etl_agent/main.py
+cd src
+uv run ai_etl_agent.main
 ```
 
 Then type queries like:
@@ -116,7 +112,7 @@ Then type queries like:
 Launch the web interface:
 
 ```bash
-streamlit run src/ai_etl_agent/app.py
+uv run streamlit run ai_etl_agent/app.py
 ```
 
 Access at `http://localhost:8501`
